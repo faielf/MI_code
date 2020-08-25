@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.spatialfilter.csp module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.spatialfilter.csp">
+<span id="matrixhacker-algorithms-spatialfilter-csp-module"></span><h1>matrixhacker.algorithms.spatialfilter.csp module<a class="headerlink" href="#module-matrixhacker.algorithms.spatialfilter.csp" title="Permalink to this headline">¶</a></h1>
+<p>Common Spatial Pattern and  his happy little buddies!</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.CSP">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.csp.</code><code class="sig-name descname">CSP</code><span class="sig-paren">(</span><em class="sig-param">n_filters=2</em>, <em class="sig-param">use_trace=True</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.CSP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.algorithms.spatialfilter.base.html#matrixhacker.algorithms.spatialfilter.base.BilinearFilter" title="matrixhacker.algorithms.spatialfilter.base.BilinearFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.base.BilinearFilter</span></code></a></p>
+<p>2-class Common Spatial Pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_filters</strong><span class="classifier">int, optional</span></dt><dd><p>The number of CSP filters to use (default 2).</p>
+</dd>
+<dt><strong>use_trace</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use trace operation to normalize covariance matrices.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.CSP.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.CSP.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute CSP filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Labels, shape (n_trials,).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>CSP object</dt><dd><p>The CSP instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.CSP.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.CSP.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X to csp features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices, shape (n_trials, n_channels, n_channels)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>features</strong><span class="classifier">ndarray</span></dt><dd><p>Log transformed CSP features, shape (n_trials, n_filters).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.FBCSP">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.csp.</code><code class="sig-name descname">FBCSP</code><span class="sig-paren">(</span><em class="sig-param">n_filters=2</em>, <em class="sig-param">n_infos=6</em>, <em class="sig-param">use_trace=True</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.FBCSP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.algorithms.spatialfilter.base.html#matrixhacker.algorithms.spatialfilter.base.FilterBank" title="matrixhacker.algorithms.spatialfilter.base.FilterBank"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.base.FilterBank</span></code></a></p>
+<p>FilterBank CSP with mutual information selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_filters</strong><span class="classifier">int, optional</span></dt><dd><p>The number of CSP filters to use (default 2).</p>
+</dd>
+<dt><strong>n_infos</strong><span class="classifier">int, optional</span></dt><dd><p>The number of mutual information to use (default 6).</p>
+</dd>
+<dt><strong>use_trace</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use trace operation to normalize covariance matrices.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.FBCSP.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.FBCSP.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit model with each band of X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Filted data, shape (n_bands, …) where the first dim must be the number of filters.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None | ndarray, optional</span></dt><dd><p>Labels of trials.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>FilterBank object</dt><dd><p>The FilterBank instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.FBCSP.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.FBCSP.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform each band of X with model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Filted EEG data, shape (n_bands, …) where the first dim must be the number of filters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Transformed features stacked on the first dim, shape (n_bands, …), the rest of shape is determinated by the model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.MultiCSP">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.csp.</code><code class="sig-name descname">MultiCSP</code><span class="sig-paren">(</span><em class="sig-param">n_filters=2</em>, <em class="sig-param">use_trace=True</em>, <em class="sig-param">ajd_method='uwedge'</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.MultiCSP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.algorithms.spatialfilter.csp.CSP" title="matrixhacker.algorithms.spatialfilter.csp.CSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.csp.CSP</span></code></a></p>
+<p>Multi-class CSP based on Wentrup’s method <a class="reference internal" href="#r3d71d390e8ec-1" id="id1"><span>[R3d71d390e8ec-1]</span></a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>n_filters</strong><span class="classifier">int, optional</span></dt><dd><p>The number of CSP filters to use (default 2).</p>
+</dd>
+<dt><strong>use_trace</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use trace operation to normalize covariance matrices.</p>
+</dd>
+<dt><strong>ajd_method</strong><span class="classifier">str, optional</span></dt><dd><p>Approximate joint diagonalization method (default uwedge).</p>
+<p>Supported methods: <cite>uwedge</cite>, <cite>rjd</cite>, <cite>ajd_pham</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="citation">
+<dt class="label" id="r3d71d390e8ec-1"><span class="brackets"><a class="fn-backref" href="#id1">R3d71d390e8ec-1</a></span></dt>
+<dd><p>Grosse-Wentrup, Moritz, and Martin Buss. “Multiclass common spatial patterns and information theoretic feature extraction.” Biomedical Engineering, IEEE Transactions on 55, no. 8 (2008): 1991-2000.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.MultiCSP.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.MultiCSP.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute CSP filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Labels, shape (n_trials,).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>MultiCSP object</dt><dd><p>The MultiCSP instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.SPoC">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.csp.</code><code class="sig-name descname">SPoC</code><span class="sig-paren">(</span><em class="sig-param">n_filters=2</em>, <em class="sig-param">use_trace=True</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.SPoC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.algorithms.spatialfilter.csp.CSP" title="matrixhacker.algorithms.spatialfilter.csp.CSP"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.csp.CSP</span></code></a></p>
+<p>SPoC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_filters</strong><span class="classifier">int, optional</span></dt><dd><p>The number of SPoC filters to use (default 2).</p>
+</dd>
+<dt><strong>use_trace</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use trace operation to normalize covariance matrices.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.SPoC.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.SPoC.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute SPoC filters, the same as CSP except y is continuous variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Labels, shape (n_trials,).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>SPoC object</dt><dd><p>The SPoC instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.csp.csp_kernel">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.csp.</code><code class="sig-name descname">csp_kernel</code><span class="sig-paren">(</span><em class="sig-param">C1</em>, <em class="sig-param">C2</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.csp.csp_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>The kernel in CSP algorithm based on paper <a class="reference internal" href="#r7f3763eff701-1" id="id2">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>C1: ndarray</strong></dt><dd><p>Covariance of EEG training data1, shape (n_channels, n_channels).</p>
+</dd>
+<dt><strong>C2: ndarray</strong></dt><dd><p>Covariance of EEG training data2, shape (n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>W: ndarray</dt><dd><p>Spatial filters, shape (n_filters, n_channels).</p>
+</dd>
+<dt>D: ndarray</dt><dd><p>Eigenvalues of W, shape (n_filters,).</p>
+</dd>
+<dt>A: ndarray</dt><dd><p>Spatial patterns, shape (n_filters, n_channels), use robust method in paper <a class="reference internal" href="#r7f3763eff701-2" id="id3">[2]</a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r7f3763eff701-1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Parra, Lucas C., et al. “Recipes for the linear analysis of EEG.” Neuroimage 28.2 (2005): 326-341.</p>
+</dd>
+<dt class="label" id="r7f3763eff701-2"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Haufe, Stefan, et al. “On the interpretation of weight vectors of linear models in multivariate neuroimaging.” Neuroimage 87 (2014): 96-110.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.spatialfilter.csp.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

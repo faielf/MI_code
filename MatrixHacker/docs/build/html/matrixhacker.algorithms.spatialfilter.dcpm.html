@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.spatialfilter.dcpm module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.spatialfilter.dcpm">
+<span id="matrixhacker-algorithms-spatialfilter-dcpm-module"></span><h1>matrixhacker.algorithms.spatialfilter.dcpm module<a class="headerlink" href="#module-matrixhacker.algorithms.spatialfilter.dcpm" title="Permalink to this headline">¶</a></h1>
+<p>DCPM. NOT FINISHED.</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.dcpm.DCPM">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.dcpm.</code><code class="sig-name descname">DCPM</code><span class="sig-paren">(</span><em class="sig-param">n_filters=4</em>, <em class="sig-param">n_ccas=4</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.dcpm.DCPM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.algorithms.spatialfilter.base.html#matrixhacker.algorithms.spatialfilter.base.LinearFilter" title="matrixhacker.algorithms.spatialfilter.base.LinearFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.base.LinearFilter</span></code></a></p>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.dcpm.DCPM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.dcpm.DCPM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing, be compatiable with sklearn API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.dcpm.DCPM.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.dcpm.DCPM.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X with linear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input data, shape (…., n_channels, n_samples).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Linear filted data, shape (…, n_filters, n_samples).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.dcpm.dsp_kernel">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.dcpm.</code><code class="sig-name descname">dsp_kernel</code><span class="sig-paren">(</span><em class="sig-param">C1</em>, <em class="sig-param">C2</em>, <em class="sig-param">template1</em>, <em class="sig-param">template2</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.dcpm.dsp_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>dsp algorihtm based on paper[1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>C1</strong><span class="classifier">ndarray</span></dt><dd><p>covariance of class 1, shape (n_channels, n_channels)</p>
+</dd>
+<dt><strong>C2</strong><span class="classifier">ndarray</span></dt><dd><p>covariance of class 2, shape (n_channels, n_channels)</p>
+</dd>
+<dt><strong>template1</strong><span class="classifier">ndarray</span></dt><dd><p>template of class 1, shape (n_channels, n_samples)</p>
+</dd>
+<dt><strong>template2</strong><span class="classifier">ndarray</span></dt><dd><p>template of class 2, shape (n_channels, n_samples)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>W: ndarray</dt><dd><p>filters, shape (n_filters, n_channels)</p>
+</dd>
+<dt>D: ndarray</dt><dd><p>eigenvalues</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] Liao, Xiang, et al. “Combining spatial filters for the classification of single-trial EEG in a finger movement task.” IEEE Transactions on Biomedical Engineering 54.5 (2007): 821-831.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.spatialfilter.dcpm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

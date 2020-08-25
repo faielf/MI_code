@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.datasets.physionet module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.datasets.physionet">
+<span id="matrixhacker-datasets-physionet-module"></span><h1>matrixhacker.datasets.physionet module<a class="headerlink" href="#module-matrixhacker.datasets.physionet" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="matrixhacker.datasets.physionet.BasePhysionet">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.physionet.</code><code class="sig-name descname">BasePhysionet</code><span class="sig-paren">(</span><em class="sig-param">paradigm</em>, <em class="sig-param">imagined=True</em>, <em class="sig-param">executed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.physionet.BasePhysionet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.datasets.base.html#matrixhacker.datasets.base.BaseDataset" title="matrixhacker.datasets.base.BaseDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.base.BaseDataset</span></code></a></p>
+<p>Physionet Motor Imagery dataset.</p>
+<p>Physionet MI dataset: <a class="reference external" href="https://physionet.org/pn4/eegmmidb/">https://physionet.org/pn4/eegmmidb/</a></p>
+<p>This data set consists of over 1500 one- and two-minute EEG recordings,
+obtained from 109 volunteers.</p>
+<p>Subjects performed different motor/imagery tasks while 64-channel EEG were
+recorded using the BCI2000 system (<a class="reference external" href="http://www.bci2000.org">http://www.bci2000.org</a>).
+Each subject performed 14 experimental runs: two one-minute baseline runs
+(one with eyes open, one with eyes closed), and three two-minute runs of
+each of the four following tasks:</p>
+<ol class="arabic simple">
+<li><p>A target appears on either the left or the right side of the screen.
+The subject opens and closes the corresponding fist until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the left or the right side of the screen.
+The subject imagines opening and closing the corresponding fist until
+the target disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject opens and closes either both fists (if the target is on top)
+or both feet (if the target is on the bottom) until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject imagines opening and closing either both fists
+(if the target is on top) or both feet (if the target is on the bottom)
+until the target disappears. Then the subject relaxes.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>imagined: bool (default True)</strong></dt><dd><p>if True, return runs corresponding to motor imagination.</p>
+</dd>
+<dt><strong>executed: bool (default False)</strong></dt><dd><p>if True, return runs corresponding to motor execution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="re8f2b0081968-1"><span class="brackets">Re8f2b0081968-1</span></dt>
+<dd><p>Schalk, G., McFarland, D.J., Hinterberger, T., Birbaumer, N. and
+Wolpaw, J.R., 2004. BCI2000: a general-purpose brain-computer
+interface (BCI) system. IEEE Transactions on biomedical engineering,
+51(6), pp.1034-1043.</p>
+</dd>
+<dt class="label" id="re8f2b0081968-2"><span class="brackets">Re8f2b0081968-2</span></dt>
+<dd><p>Goldberger, A.L., Amaral, L.A., Glass, L., Hausdorff, J.M., Ivanov,
+P.C., Mark, R.G., Mietus, J.E., Moody, G.B., Peng, C.K., Stanley,
+H.E. and PhysioBank, P., PhysioNet: components of a new research
+resource for complex physiologic signals Circulation 2000 Volume
+101 Issue 23 pp. E215–E220.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.datasets.physionet.BasePhysionet.data_path">
+<code class="sig-name descname">data_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">subject</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.physionet.BasePhysionet.data_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.physionet.PhysionetME">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.physionet.</code><code class="sig-name descname">PhysionetME</code><a class="headerlink" href="#matrixhacker.datasets.physionet.PhysionetME" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.physionet.BasePhysionet" title="matrixhacker.datasets.physionet.BasePhysionet"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.physionet.BasePhysionet</span></code></a></p>
+<p>Physionet Motor Imagery dataset for motor execution.</p>
+<p>Physionet MI dataset: <a class="reference external" href="https://physionet.org/pn4/eegmmidb/">https://physionet.org/pn4/eegmmidb/</a></p>
+<p>This data set consists of over 1500 one- and two-minute EEG recordings,
+obtained from 109 volunteers.</p>
+<p>Subjects performed different motor/imagery tasks while 64-channel EEG were
+recorded using the BCI2000 system (<a class="reference external" href="http://www.bci2000.org">http://www.bci2000.org</a>).
+Each subject performed 14 experimental runs: two one-minute baseline runs
+(one with eyes open, one with eyes closed), and three two-minute runs of
+each of the four following tasks:</p>
+<ol class="arabic simple">
+<li><p>A target appears on either the left or the right side of the screen.
+The subject opens and closes the corresponding fist until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the left or the right side of the screen.
+The subject imagines opening and closing the corresponding fist until
+the target disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject opens and closes either both fists (if the target is on top)
+or both feet (if the target is on the bottom) until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject imagines opening and closing either both fists
+(if the target is on top) or both feet (if the target is on the bottom)
+until the target disappears. Then the subject relaxes.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>imagined: bool (default True)</strong></dt><dd><p>if True, return runs corresponding to motor imagination.</p>
+</dd>
+<dt><strong>executed: bool (default False)</strong></dt><dd><p>if True, return runs corresponding to motor execution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r0bd8614dd096-1"><span class="brackets">1</span></dt>
+<dd><p>Schalk, G., McFarland, D.J., Hinterberger, T., Birbaumer, N. and
+Wolpaw, J.R., 2004. BCI2000: a general-purpose brain-computer
+interface (BCI) system. IEEE Transactions on biomedical engineering,
+51(6), pp.1034-1043.</p>
+</dd>
+<dt class="label" id="r0bd8614dd096-2"><span class="brackets">2</span></dt>
+<dd><p>Goldberger, A.L., Amaral, L.A., Glass, L., Hausdorff, J.M., Ivanov,
+P.C., Mark, R.G., Mietus, J.E., Moody, G.B., Peng, C.K., Stanley,
+H.E. and PhysioBank, P., PhysioNet: components of a new research
+resource for complex physiologic signals Circulation 2000 Volume
+101 Issue 23 pp. E215–E220.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.physionet.PhysionetMI">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.physionet.</code><code class="sig-name descname">PhysionetMI</code><a class="headerlink" href="#matrixhacker.datasets.physionet.PhysionetMI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.physionet.BasePhysionet" title="matrixhacker.datasets.physionet.BasePhysionet"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.physionet.BasePhysionet</span></code></a></p>
+<p>Physionet Motor Imagery dataset for MI.</p>
+<p>Physionet MI dataset: <a class="reference external" href="https://physionet.org/pn4/eegmmidb/">https://physionet.org/pn4/eegmmidb/</a></p>
+<p>This data set consists of over 1500 one- and two-minute EEG recordings,
+obtained from 109 volunteers.</p>
+<p>Subjects performed different motor/imagery tasks while 64-channel EEG were
+recorded using the BCI2000 system (<a class="reference external" href="http://www.bci2000.org">http://www.bci2000.org</a>).
+Each subject performed 14 experimental runs: two one-minute baseline runs
+(one with eyes open, one with eyes closed), and three two-minute runs of
+each of the four following tasks:</p>
+<ol class="arabic simple">
+<li><p>A target appears on either the left or the right side of the screen.
+The subject opens and closes the corresponding fist until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the left or the right side of the screen.
+The subject imagines opening and closing the corresponding fist until
+the target disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject opens and closes either both fists (if the target is on top)
+or both feet (if the target is on the bottom) until the target
+disappears. Then the subject relaxes.</p></li>
+<li><p>A target appears on either the top or the bottom of the screen.
+The subject imagines opening and closing either both fists
+(if the target is on top) or both feet (if the target is on the bottom)
+until the target disappears. Then the subject relaxes.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>imagined: bool (default True)</strong></dt><dd><p>if True, return runs corresponding to motor imagination.</p>
+</dd>
+<dt><strong>executed: bool (default False)</strong></dt><dd><p>if True, return runs corresponding to motor execution.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r7928dcf1fbfe-1"><span class="brackets">1</span></dt>
+<dd><p>Schalk, G., McFarland, D.J., Hinterberger, T., Birbaumer, N. and
+Wolpaw, J.R., 2004. BCI2000: a general-purpose brain-computer
+interface (BCI) system. IEEE Transactions on biomedical engineering,
+51(6), pp.1034-1043.</p>
+</dd>
+<dt class="label" id="r7928dcf1fbfe-2"><span class="brackets">2</span></dt>
+<dd><p>Goldberger, A.L., Amaral, L.A., Glass, L., Hausdorff, J.M., Ivanov,
+P.C., Mark, R.G., Mietus, J.E., Moody, G.B., Peng, C.K., Stanley,
+H.E. and PhysioBank, P., PhysioNet: components of a new research
+resource for complex physiologic signals Circulation 2000 Volume
+101 Issue 23 pp. E215–E220.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.datasets.physionet.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

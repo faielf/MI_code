@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.datasets.base module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.datasets.base">
+<span id="matrixhacker-datasets-base-module"></span><h1>matrixhacker.datasets.base module<a class="headerlink" href="#module-matrixhacker.datasets.base" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="matrixhacker.datasets.base.BaseDataset">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">BaseDataset</code><span class="sig-paren">(</span><em class="sig-param">code</em>, <em class="sig-param">subjects</em>, <em class="sig-param">events</em>, <em class="sig-param">channels</em>, <em class="sig-param">srate</em>, <em class="sig-param">paradigm</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.BaseDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parameters required for all datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>subjects: List of int</strong></dt><dd><p>List of subject number</p>
+</dd>
+<dt><strong>sessions_per_subject: int</strong></dt><dd><p>Number of sessions per subject</p>
+</dd>
+<dt><strong>events: dict of strings, value of (event_id, interval) format</strong></dt><dd><p>String codes for events matched with labels in the stim channel.
+Currently avaliable codes can include:
+- left_hand
+- right_hand
+- hands
+- feet
+- rest
+- left_hand_right_foot
+- right_hand_left_foot
+- tongue
+- navigation
+- subtraction
+- word_ass (for word association)</p>
+</dd>
+<dt><strong>code: string</strong></dt><dd><p>Unique identifier for dataset, used in all plots</p>
+</dd>
+<dt><strong>channels: list of string</strong></dt><dd><p>availabe channels</p>
+</dd>
+<dt><strong>paradigm: [‘p300’,’imagery’, ‘ssvep’]</strong></dt><dd><p>Defines what sort of dataset this is (currently only imagery is
+implemented)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.datasets.base.BaseDataset.data_path">
+<em class="property">abstract </em><code class="sig-name descname">data_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">subject</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.BaseDataset.data_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get path to local copy of a subject data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>subject</strong><span class="classifier">int</span></dt><dd><p>Number of subject to use</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">None | str</span></dt><dd><p>Location of where to look for the data storing location.
+If None, the environment variable or config parameter
+<code class="docutils literal notranslate"><span class="pre">MNE_DATASETS_(dataset)_PATH</span></code> is used. If it doesn’t exist, the
+“~/mne_data” directory is used. If the dataset
+is not found under the given path, the data
+will be automatically downloaded to the specified folder.</p>
+</dd>
+<dt><strong>force_update</strong><span class="classifier">bool</span></dt><dd><p>Force update of the dataset even if a local copy exists.</p>
+</dd>
+<dt><strong>update_path</strong><span class="classifier">bool | None</span></dt><dd><p>If True, set the MNE_DATASETS_(dataset)_PATH in mne-python
+config to the given path. If None, the user is prompted.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, str, int, or None</span></dt><dd><p>If not None, override default verbose level
+(see <code class="xref py py-func docutils literal notranslate"><span class="pre">mne.verbose()</span></code>).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">list of str</span></dt><dd><p>Local path to the given data file. This path is contained inside a
+list of length one, for compatibility.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.datasets.base.BaseDataset.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.BaseDataset.get_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.fetch">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">fetch</code><span class="sig-paren">(</span><em class="sig-param">datastream</em>, <em class="sig-param">destination</em>, <em class="sig-param">resume=True</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.fetch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.loadmat">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">loadmat</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.loadmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper of scipy loadmat, works for  mat after matlab v7.3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.mne_data_path">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">mne_data_path</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">sign</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=True</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.mne_data_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get path to local copy of given dataset URL.</p>
+<p>This is a low-level function useful for getting a local copy of a
+remote dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>url</strong><span class="classifier">str</span></dt><dd><p>Path to remote location of data</p>
+</dd>
+<dt><strong>sign</strong><span class="classifier">str</span></dt><dd><p>Signifier of dataset</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">None | str</span></dt><dd><p>Location of where to look for the BNCI data storing location.
+If None, the environment variable or config parameter
+<code class="docutils literal notranslate"><span class="pre">MNE_DATASETS_(signifier)_PATH</span></code> is used. If it doesn’t exist, the
+“~/mne_data” directory is used. If the dataset
+is not found under the given path, the data
+will be automatically downloaded to the specified folder.</p>
+</dd>
+<dt><strong>force_update</strong><span class="classifier">bool</span></dt><dd><p>Force update of the dataset even if a local copy exists.</p>
+</dd>
+<dt><strong>update_path</strong><span class="classifier">bool | None</span></dt><dd><p>If True, set the MNE_DATASETS_(signifier)_PATH in mne-python
+config to the given path. If None, the user is prompted.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, str, int, or None</span></dt><dd><p>If not None, override default verbose level (see <code class="xref py py-func docutils literal notranslate"><span class="pre">mne.verbose()</span></code>).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">list of str</span></dt><dd><p>Local path to the given data file. This path is contained inside a list
+of length one, for compatibility.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.squeeze">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">squeeze</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.squeeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper of numpy squeeze function , return scalar if data is scalar array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.upper_ch_names">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">upper_ch_names</code><span class="sig-paren">(</span><em class="sig-param">raw</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.upper_ch_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.base.url_to_local_path">
+<code class="sig-prename descclassname">matrixhacker.datasets.base.</code><code class="sig-name descname">url_to_local_path</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">local_folder=''</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.base.url_to_local_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mirror a url path in a local destination (keeping folder structure).</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.datasets.base.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

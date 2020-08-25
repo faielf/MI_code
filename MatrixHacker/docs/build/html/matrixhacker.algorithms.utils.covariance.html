@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.utils.covariance module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.utils.covariance">
+<span id="matrixhacker-algorithms-utils-covariance-module"></span><h1>matrixhacker.algorithms.utils.covariance module<a class="headerlink" href="#module-matrixhacker.algorithms.utils.covariance" title="Permalink to this headline">¶</a></h1>
+<p>Covariance estimation related methods.</p>
+<p><strong>Covariance</strong> is extremely important in BCI community. Many algorithms require different matrix decompostion methods of estimated covariances.
+However, noisy and unstable characteristics of EEG signals make it hard to get numerically stable results. 
+This problem can be alleviated with <strong>shrinkage covariance estimation</strong> methods, like <cite>LedoitWolf</cite>.</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.utils.covariance.Covariance">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.utils.covariance.</code><code class="sig-name descname">Covariance</code><span class="sig-paren">(</span><em class="sig-param">estimator='cov'</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.Covariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Estimation of covariance matrix.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">str or callable object, optional</span></dt><dd><p>Covariance estimator to use (the default is <cite>cov</cite>, which uses empirical covariance estimator). For regularization, consider <cite>lwf</cite> or <cite>oas</cite>.</p>
+<p><strong>supported estimators</strong></p>
+<blockquote>
+<div><p><cite>cov</cite>: empirial covariance estimator</p>
+<p><cite>lwf</cite>: ledoit wolf covariance estimator</p>
+<p><cite>oas</cite>: oracle approximating shrinkage covariance estimator</p>
+<p><cite>mcd</cite>: minimum covariance determinant covariance estimator</p>
+</div></blockquote>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int or None, optional</span></dt><dd><p>The number of CPUs to use to do the computation (the default is 1, -1 for all processors).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.utils.covariance.ERPCovariance" title="matrixhacker.algorithms.utils.covariance.ERPCovariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ERPCovariance</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<dl class="method">
+<dt id="matrixhacker.algorithms.utils.covariance.Covariance.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.Covariance.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not used, only for compatibility with sklearn API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (…, n_channels, n_samples).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Labels.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Covariance instance</span></dt><dd><p>The Covariance instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.utils.covariance.Covariance.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.Covariance.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform EEG to covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (…, n_channels, n_samples).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>Estimated covariances, shape (…, n_channels, n_channels)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.utils.covariance.ERPCovariance">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.utils.covariance.</code><code class="sig-name descname">ERPCovariance</code><span class="sig-paren">(</span><em class="sig-param">estimator='cov'</em>, <em class="sig-param">svd=None</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.ERPCovariance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Estimation of covariance matrix for ERP signal.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>estimator</strong><span class="classifier">str or callable object, optional</span></dt><dd><p>Covariance estimator to use (the default is <cite>cov</cite>, which uses empirical covariance estimator). For regularization, consider <cite>lwf</cite> or <cite>oas</cite>.</p>
+<p><strong>supported estimators</strong></p>
+<blockquote>
+<div><p><cite>cov</cite>: empirial covariance estimator</p>
+<p><cite>lwf</cite>: ledoit wolf covariance estimator</p>
+<p><cite>oas</cite>: oracle approximating shrinkage covariance estimator</p>
+<p><cite>mcd</cite>: minimum covariance determinant covariance estimator</p>
+</div></blockquote>
+</dd>
+<dt><strong>svd</strong><span class="classifier">None or int, optional</span></dt><dd><p>If not None (default is None), the prototype responses will be reduced using SVD with the number of components passed in svd parameter.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int or None, optional</span></dt><dd><p>The number of CPUs to use to do the computation (the default is 1, -1 for all processors).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.utils.covariance.Covariance" title="matrixhacker.algorithms.utils.covariance.Covariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Covariance</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Estimation of special form covariance matrix dedicated to ERP processing.
+For each class, a prototyped response is obtained by average across trial :</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{P} = \frac{1}{N} \sum_i^N \mathbf{X}_i\]</div>
+<p>and a super trial is build using the concatenation of P and the trial X :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{\tilde{X}}_i =  \left[
+                        \begin{array}{c}
+                        \mathbf{X}_i \\
+                        \mathbf{P}
+                        \end{array}
+                        \right]\end{split}\]</div>
+<p>This super trial <span class="math notranslate nohighlight">\(\mathbf{\tilde{X}}_i\)</span> will be used for covariance
+estimation.</p>
+<p>This allows to take into account the spatial structure of the ERP signal, as
+described in <a class="reference internal" href="#r8b66cf1a8e29-1" id="id1"><span>[R8b66cf1a8e29-1]</span></a>.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r8b66cf1a8e29-1"><span class="brackets"><a class="fn-backref" href="#id1">R8b66cf1a8e29-1</a></span></dt>
+<dd><p>Congedo, Marco, Alexandre Barachant, and Rajendra Bhatia. “Riemannian geometry for EEG-based brain-computer interfaces; a primer and a review.” Brain-Computer Interfaces 4.3 (2017): 155-174.</p>
+</dd>
+</dl>
+<p class="rubric">Attributes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>classes</strong></p></td>
+<td><p>(ndarray) The label of each class, shape (n_classes,).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>P</strong></p></td>
+<td><p>(ndarray) Prototyped responses, shape (n_c, n_samples),  n_c equals to <cite>n_channels*n_classes</cite>, if svd is not None, n_c equals to <cite>n_classes*svd</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="matrixhacker.algorithms.utils.covariance.ERPCovariance.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.ERPCovariance.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the prototyped response for each class in label y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (n_trials, n_channels, n_samples)</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Labels corresponding to each trial, shape (n_trials,)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self: ERPCovariance instance</dt><dd><p>The ERPCovariance instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.utils.covariance.ERPCovariance.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.ERPCovariance.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform EEG signal X to special ERP covariance matrix with prototyped responses.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (n_trials, n_channels, n_samples)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>Special ERP covariance matrix, shape (n_trials, n_channels+n_c, n_channels+n_c).</p>
+<p>n_c equals to <cite>n_channels*n_classes</cite></p>
+<p>if svd is not None, n_c equals to <cite>n_classes*svd</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.covariance.covariances">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.covariance.</code><code class="sig-name descname">covariances</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">estimator='cov'</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.covariances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimation of covariance matrix.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (…, n_channels, n_samples).</p>
+</dd>
+<dt><strong>estimator</strong><span class="classifier">str or callable object, optional</span></dt><dd><p>Covariance estimator to use (the default is <cite>cov</cite>, which uses empirical covariance estimator). For regularization, consider <cite>lwf</cite> or <cite>oas</cite>.</p>
+<p><strong>supported estimators</strong></p>
+<blockquote>
+<div><p><cite>cov</cite>: empirial covariance estimator</p>
+<p><cite>lwf</cite>: ledoit wolf covariance estimator</p>
+<p><cite>oas</cite>: oracle approximating shrinkage covariance estimator</p>
+<p><cite>mcd</cite>: minimum covariance determinant covariance estimator</p>
+</div></blockquote>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int or None, optional</span></dt><dd><p>The number of CPUs to use to do the computation (the default is 1, -1 for all processors).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>covariance matrices, shape (…, n_channels, n_channels)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.utils.covariance.covariances_erp" title="matrixhacker.algorithms.utils.covariance.covariances_erp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">covariances_erp</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.covariance.covariances_erp">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.covariance.</code><code class="sig-name descname">covariances_erp</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">P</em>, <em class="sig-param">estimator='cov'</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.covariance.covariances_erp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimation of covariance matrix combined with erp signals.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>EEG signal, shape (n_trials, …, n_channels, n_samples)</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">ndarray</span></dt><dd><p>ERP signal, shape (…, n_components, n_samples)</p>
+</dd>
+<dt><strong>estimator</strong><span class="classifier">str or callable object, optional</span></dt><dd><p>Covariance estimator to use (the default is <cite>cov</cite>, which uses empirical covariance estimator). 
+For regularization, consider <cite>lwf</cite> or <cite>oas</cite>.</p>
+<p><strong>supported estimators</strong></p>
+<blockquote>
+<div><p><cite>cov</cite>: empirial covariance estimator</p>
+<p><cite>lwf</cite>: ledoit wolf covariance estimator</p>
+<p><cite>oas</cite>: oracle approximating shrinkage covariance estimator</p>
+<p><cite>mcd</cite>: minimum covariance determinant covariance estimator</p>
+</div></blockquote>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int or None, optional</span></dt><dd><p>The number of CPUs to use to do the computation (the default is 1, -1 for all processors).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>covariance matrices, shape (…, n_channels, n_channels)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.utils.covariance.covariances" title="matrixhacker.algorithms.utils.covariance.covariances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">covariances</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This method concatenates EEG <strong>X</strong> and ERP <strong>P</strong> along with channel dimension, 
+which results in a new matrix with <cite>n_channels+n_components</cite> channels. 
+The rest of computation is the same as <cite>covariances</cite> method.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.utils.covariance.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

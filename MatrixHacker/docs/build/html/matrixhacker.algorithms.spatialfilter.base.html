@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.spatialfilter.base module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.spatialfilter.base">
+<span id="matrixhacker-algorithms-spatialfilter-base-module"></span><h1>matrixhacker.algorithms.spatialfilter.base module<a class="headerlink" href="#module-matrixhacker.algorithms.spatialfilter.base" title="Permalink to this headline">¶</a></h1>
+<p>Basic methods for spatial filters.</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.base.BilinearFilter">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">BilinearFilter</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.BilinearFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Transform data with bilinear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filters</strong><span class="classifier">ndarray</span></dt><dd><p>Filters, shape (n_filters, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Bilinear filtering looks like this:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Xf} = \mathbf{W} \mathbf{X} \mathbf{W}^T \]</div>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.BilinearFilter.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.BilinearFilter.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing, be compatiable with sklearn API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.BilinearFilter.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.BilinearFilter.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X with bilinear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input covariance-like data, shape (…., n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Bilinear filted data, shape (…, n_filters, n_filters).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.base.FilterBank">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">FilterBank</code><span class="sig-paren">(</span><em class="sig-param">estimator</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.FilterBank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Apply a given indentical pipeline over a bank of filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>estimator: sklean Estimator object</strong></dt><dd><p>The sklearn pipeline to apply on each band of the filter bank.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The pipeline provided with the constrictor will be appield on the 4th
+axis of the input data. This pipeline should be used with a FilterBank
+paradigm.</p>
+<p>This can be used to build a filterbank CSP, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">FilterBank</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">CSP</span><span class="p">()),</span> <span class="n">LDA</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.FilterBank.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.FilterBank.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit model with each band of X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Filted data, shape (n_bands, …) where the first dim must be the number of filters.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None | ndarray, optional</span></dt><dd><p>Labels of trials.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>FilterBank object</dt><dd><p>The FilterBank instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.FilterBank.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.FilterBank.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform each band of X with model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Filted EEG data, shape (n_bands, …) where the first dim must be the number of filters.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Transformed features stacked on the first dim, shape (n_bands, …), the rest of shape is determinated by the model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.base.LinearFilter">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">LinearFilter</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.LinearFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Transform data with linear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>filters</strong><span class="classifier">ndarray</span></dt><dd><p>Filters, shape (n_filters, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Linear filtering looks like this:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Xf} = \mathbf{W} \mathbf{X}\]</div>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.LinearFilter.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.LinearFilter.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing, be compatiable with sklearn API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.base.LinearFilter.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.LinearFilter.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X with linear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input data, shape (…., n_channels, n_samples).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Linear filted data, shape (…, n_filters, n_samples).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.ajd">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">ajd</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">method='uwedge'</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.ajd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper of AJD methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input covariance matrices, shape (n_trials, n_channels, n_channels)</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, optional</span></dt><dd><p>AJD method (default uwedge).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>V</strong><span class="classifier">ndarray</span></dt><dd><p>The diagonalizer, shape (n_filters, n_channels), usually n_filters == n_channels.</p>
+</dd>
+<dt><strong>D</strong><span class="classifier">ndarray</span></dt><dd><p>The set of quasi diagonal matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.ajd_pham">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">ajd_pham</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">eps=1e-06</em>, <em class="sig-param">n_iter_max=100</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.ajd_pham" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximate joint diagonalization based on pham’s algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>A set of covariance matrices to diagonalize, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for stoping criterion (default 1e-6).</p>
+</dd>
+<dt><strong>n_iter_max</strong><span class="classifier">int, optional</span></dt><dd><p>The maximum number of iteration to reach convergence (default 1000).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>V</strong><span class="classifier">ndarray</span></dt><dd><p>The diagonalizer, shape (n_filters, n_channels), usually n_filters == n_channels.</p>
+</dd>
+<dt><strong>D</strong><span class="classifier">ndarray</span></dt><dd><p>The set of quasi diagonal matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a direct implementation of the PHAM’s AJD algorithm <a class="reference internal" href="#rae44cac713d5-1" id="id1">[1]</a>.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rae44cac713d5-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Pham, Dinh Tuan. “Joint approximate diagonalization of positive definite Hermitian matrices.” SIAM Journal on Matrix Analysis and Applications 22, no. 4 (2001): 1136-1152.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.bilinear_filter">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">bilinear_filter</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.bilinear_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bilinear filter applied on data X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input covariance-like data, shape (…, n_channels, n_channels).</p>
+</dd>
+<dt><strong>filters</strong><span class="classifier">ndarray</span></dt><dd><p>Filters, shape (n_filters, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Bilinear filtered data, shape (…, n_filters, n_filters).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Xf} = \mathbf{W} \mathbf{X} \mathbf{W}^T\]</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.linear_filter">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">linear_filter</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.linear_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linear filter applied on data X.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input data, shape (…, n_channels, n_samples).</p>
+</dd>
+<dt><strong>filters</strong><span class="classifier">ndarray</span></dt><dd><p>Filters, shape (n_filters, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Linear filtered data, shape (…, n_filters, n_samples).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Xf} = \mathbf{W} \mathbf{X}\]</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.rjd">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">rjd</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">eps=1e-08</em>, <em class="sig-param">n_iter_max=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.rjd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximate joint diagonalization based on jacobi angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>A set of covariance matrices to diagonalize, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for stopping criterion (default 1e-8).</p>
+</dd>
+<dt><strong>n_iter_max</strong><span class="classifier">int, optional</span></dt><dd><p>The maximum number of iteration to reach convergence (default 1000).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>V</strong><span class="classifier">ndarray</span></dt><dd><p>The diagonalizer, shape (n_filters, n_channels), usually n_filters == n_channels.</p>
+</dd>
+<dt><strong>D</strong><span class="classifier">ndarray</span></dt><dd><p>The set of quasi diagonal matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a direct implementation of the Cardoso AJD algorithm <a class="reference internal" href="#r7f12dde7183b-1" id="id3">[1]</a> used in
+JADE. The code is a translation of the matlab code provided in the author
+website.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r7f12dde7183b-1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>Cardoso, Jean-Francois, and Antoine Souloumiac. Jacobi angles for simultaneous diagonalization. SIAM journal on matrix analysis and applications 17.1 (1996): 161-164.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.robustPattern">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">robustPattern</code><span class="sig-paren">(</span><em class="sig-param">W</em>, <em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.robustPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform spatial filters to spatial patterns based on paper <a class="reference internal" href="#recd946b63d3d-1" id="id5">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>W</strong><span class="classifier">ndarray</span></dt><dd><p>Spatial filters, shape (n_filters, n_channels).</p>
+</dd>
+<dt><strong>C</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrix of A in generalize Rayleigh quotient, shape (n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">ndarray</span></dt><dd><p>Spatial patterns, shape (n_filters, n_channels), each row is a spatial pattern.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="recd946b63d3d-1"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p>Haufe, Stefan, et al. “On the interpretation of weight vectors of linear models in multivariate neuroimaging.” Neuroimage 87 (2014): 96-110.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.base.uwedge">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.base.</code><code class="sig-name descname">uwedge</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">init=None</em>, <em class="sig-param">eps=1e-07</em>, <em class="sig-param">n_iter_max=100</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.base.uwedge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximate joint diagonalization algorithm UWEDGE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>A set of covariance matrices to diagonalize, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>init</strong><span class="classifier">None | ndarray, optional</span></dt><dd><p>Initialization for the diagonalizer, shape (n_channels, n_channels).</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for stoping criterion (default 1e-7).</p>
+</dd>
+<dt><strong>n_iter_max</strong><span class="classifier">int</span></dt><dd><p>The maximum number of iteration to reach convergence (default 1000).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>W_est</strong><span class="classifier">ndarray</span></dt><dd><p>The diagonalizer, shape (n_filters, n_channels), usually n_filters == n_channels.</p>
+</dd>
+<dt><strong>D</strong><span class="classifier">ndarray</span></dt><dd><p>The set of quasi diagonal matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uniformly Weighted Exhaustive Diagonalization using Gauss iteration
+(U-WEDGE). Implementation of the AJD algorithm by Tichavsky and Yeredor <a class="reference internal" href="#rd2c16ee9f61c-1" id="id7">[1]</a> <a class="reference internal" href="#rd2c16ee9f61c-2" id="id8">[2]</a>.
+This is a translation from the matlab code provided by the authors.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rd2c16ee9f61c-1"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
+<dd><ol class="upperalpha simple" start="16">
+<li><p>Tichavsky, A. Yeredor and J. Nielsen, “A Fast Approximate Joint Diagonalization Algorithm Using a Criterion with a Block Diagonal Weight Matrix”, ICASSP 2008, Las Vegas.</p></li>
+</ol>
+</dd>
+<dt class="label" id="rd2c16ee9f61c-2"><span class="brackets"><a class="fn-backref" href="#id8">2</a></span></dt>
+<dd><ol class="upperalpha simple" start="16">
+<li><p>Tichavsky and A. Yeredor, “Fast Approximate Joint Diagonalization Incorporating Weight Matrices” IEEE Transactions of Signal Processing, 2009.</p></li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.spatialfilter.base.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

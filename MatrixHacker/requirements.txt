@@ -1,0 +1,8 @@
+numpy
+scipy
+pandas
+h5py
+scikit-learn
+mne>=0.19
+torch
+torchvision

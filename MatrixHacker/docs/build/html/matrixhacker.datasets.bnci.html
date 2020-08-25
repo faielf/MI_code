@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.datasets.bnci module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.datasets.bnci">
+<span id="matrixhacker-datasets-bnci-module"></span><h1>matrixhacker.datasets.bnci module<a class="headerlink" href="#module-matrixhacker.datasets.bnci" title="Permalink to this headline">¶</a></h1>
+<p>BNCI 2014-001 Motor imagery dataset.</p>
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2014001">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2014001</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2014001" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2014-001 Motor Imagery dataset.</p>
+<p>Dataset IIa from BCI Competition 4 <a class="reference internal" href="#r9f393f34da0f-1" id="id1">[1]</a>.</p>
+<p><strong>Dataset Description</strong></p>
+<p>This data set consists of EEG data from 9 subjects.  The cue-based BCI
+paradigm consisted of four different motor imagery tasks, namely the imag-
+ination of movement of the left hand (class 1), right hand (class 2), both
+feet (class 3), and tongue (class 4).  Two sessions on different days were
+recorded for each subject.  Each session is comprised of 6 runs separated
+by short breaks.  One run consists of 48 trials (12 for each of the four
+possible classes), yielding a total of 288 trials per session.</p>
+<p>The subjects were sitting in a comfortable armchair in front of a computer
+screen.  At the beginning of a trial ( t = 0 s), a fixation cross appeared
+on the black screen.  In addition, a short acoustic warning tone was
+presented.  After two seconds ( t = 2 s), a cue in the form of an arrow
+pointing either to the left, right, down or up (corresponding to one of the
+four classes left hand, right hand, foot or tongue) appeared and stayed on
+the screen for 1.25 s.  This prompted the subjects to perform the desired
+motor imagery task.  No feedback was provided.  The subjects were ask to
+carry out the motor imagery task until the fixation cross disappeared from
+the screen at t = 6 s.</p>
+<p>Twenty-two Ag/AgCl electrodes (with inter-electrode distances of 3.5 cm)
+were used to record the EEG; the montage is shown in Figure 3 left.  All
+signals were recorded monopolarly with the left mastoid serving as
+reference and the right mastoid as ground. The signals were sampled with.
+250 Hz and bandpass-filtered between 0.5 Hz and 100 Hz. The sensitivity of
+the amplifier was set to 100 μV . An additional 50 Hz notch filter was
+enabled to suppress line noise</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r9f393f34da0f-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Tangermann, M., Müller, K.R., Aertsen, A., Birbaumer, N., Braun, C.,
+Brunner, C., Leeb, R., Mehring, C., Miller, K.J., Mueller-Putz, G.
+and Nolte, G., 2012. Review of the BCI competition IV.
+Frontiers in neuroscience, 6, p.55.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2014002">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2014002</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2014002" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2014-002 Motor Imagery dataset.</p>
+<p>Motor Imagery Dataset from <a class="reference internal" href="#r9142001ce810-1" id="id3">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>The session consisted of eight runs, five of them for training and three
+with feedback for validation.  One run was composed of 20 trials.  Taken
+together, we recorded 50 trials per class for training and 30 trials per
+class for validation.  Participants had the task of performing sustained (5
+seconds) kinaesthetic motor imagery (MI) of the right hand and of the feet
+each as instructed by the cue. At 0 s, a white colored cross appeared on
+screen, 2 s later a beep sounded to catch the participant’s attention. The
+cue was displayed from 3 s to 4 s. Participants were instructed to start
+with MI as soon as they recognized the cue and to perform the indicated MI
+until the cross disappeared at 8 s. A rest period with a random length
+between 2 s and 3 s was presented between trials. Participants did not
+receive feedback during training.  Feedback was presented in form of a
+white
+coloured bar-graph.  The length of the bar-graph reflected the amount of
+correct classifications over the last second.  EEG was measured with a
+biosignal amplifier and active Ag/AgCl electrodes (g.USBamp, g.LADYbird,
+Guger Technologies OG, Schiedlberg, Austria) at a sampling rate of 512 Hz.
+The electrodes placement was designed for obtaining three Laplacian
+derivations.  Center electrodes at positions C3, Cz, and C4 and four
+additional electrodes around each center electrode with a distance of 2.5
+cm, 15 electrodes total.  The reference electrode was mounted on the left
+mastoid and the ground electrode on the right mastoid.  The 13 participants
+were aged between 20 and 30 years, 8 naive to the task, and had no known
+medical or neurological diseases.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r9142001ce810-1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>Steyrl, D., Scherer, R., Faller, J. and Müller-Putz, G.R., 2016.
+Random forests in non-invasive sensorimotor rhythm brain-computer
+interfaces: a practical and convenient non-linear classifier.
+Biomedical Engineering/Biomedizinische Technik, 61(1), pp.77-86.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2014004">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2014004</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2014004" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2014-004 Motor Imagery dataset.</p>
+<p>Dataset B from BCI Competition 2008.</p>
+<p><strong>Dataset description</strong></p>
+<p>This data set consists of EEG data from 9 subjects of a study published in
+<a class="reference internal" href="#r0aad16bb2061-1" id="id5">[1]</a>. The subjects were right-handed, had normal or corrected-to-normal
+vision and were paid for participating in the experiments.
+All volunteers were sitting in an armchair, watching a flat screen monitor
+placed approximately 1 m away at eye level. For each subject 5 sessions
+are provided, whereby the first two sessions contain training data without
+feedback (screening), and the last three sessions were recorded with
+feedback.</p>
+<p>Three bipolar recordings (C3, Cz, and C4) were recorded with a sampling
+frequency of 250 Hz.They were bandpass- filtered between 0.5 Hz and 100 Hz,
+and a notch filter at 50 Hz was enabled.  The placement of the three
+bipolar recordings (large or small distances, more anterior or posterior)
+were slightly different for each subject (for more details see [1]).
+The electrode position Fz served as EEG ground. In addition to the EEG
+channels, the electrooculogram (EOG) was recorded with three monopolar
+electrodes.</p>
+<p>The cue-based screening paradigm consisted of two classes,
+namely the motor imagery (MI) of left hand (class 1) and right hand
+(class 2).
+Each subject participated in two screening sessions without feedback
+recorded on two different days within two weeks.
+Each session consisted of six runs with ten trials each and two classes of
+imagery.  This resulted in 20 trials per run and 120 trials per session.
+Data of 120 repetitions of each MI class were available for each person in
+total.  Prior to the first motor im- agery training the subject executed
+and imagined different movements for each body part and selected the one
+which they could imagine best (e. g., squeezing a ball or pulling a brake).</p>
+<p>Each trial started with a fixation cross and an additional short acoustic
+warning tone (1 kHz, 70 ms).  Some seconds later a visual cue was presented
+for 1.25 seconds.  Afterwards the subjects had to imagine the corresponding
+hand movement over a period of 4 seconds.  Each trial was followed by a
+short break of at least 1.5 seconds.  A randomized time of up to 1 second
+was added to the break to avoid adaptation</p>
+<p>For the three online feedback sessions four runs with smiley feedback
+were recorded, whereby each run consisted of twenty trials for each type of
+motor imagery.  At the beginning of each trial (second 0) the feedback (a
+gray smiley) was centered on the screen.  At second 2, a short warning beep
+(1 kHz, 70 ms) was given. The cue was presented from second 3 to 7.5. At
+second 7.5 the screen went blank and a random interval between 1.0 and 2.0
+seconds was added to the trial.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r0aad16bb2061-1"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p>R. Leeb, F. Lee, C. Keinrath, R. Scherer, H. Bischof,
+G. Pfurtscheller. Brain-computer communication: motivation, aim,
+and impact of exploring a virtual apartment. IEEE Transactions on
+Neural Systems and Rehabilitation Engineering 15, 473–482, 2007</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2014008">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2014008</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2014008" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2014-008 P300 dataset.</p>
+<p>Dataset from <a class="reference internal" href="#r3b99899662a6-1" id="id7">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>This dataset represents a complete record of P300 evoked potentials
+using a paradigm originally described by Farwell and Donchin [2].
+In these sessions, 8 users with amyotrophic lateral sclerosis (ALS)
+focused on one out of 36 different characters. The objective in this
+contest is to predict the correct character in each of the provided
+character selection epochs.</p>
+<p>We included in the study a total of eight volunteers, all naïve to BCI
+training. Scalp EEG signals were recorded (g.MOBILAB, g.tec, Austria)
+from eight channels according to 10–10 standard (Fz, Cz, Pz, Oz, P3, P4,
+PO7 and PO8) using active electrodes (g.Ladybird, g.tec, Austria).
+All channels were referenced to the right earlobe and grounded to the left
+mastoid. The EEG signal was digitized at 256 Hz and band-pass filtered
+between 0.1 and 30 Hz.</p>
+<p>Participants were required to copy spell seven predefined words of five
+characters each (runs), by controlling a P300 matrix speller. Rows and
+columns on the interface were randomly intensified for 125ms, with an
+inter stimulus interval (ISI) of 125ms, yielding a 250 ms lag between the
+appearance of two stimuli (stimulus onset asynchrony, SOA).</p>
+<p>In the first three runs (15 trials in total) EEG data was stored to
+perform a calibration of the BCI classifier. Thus no feedback was provided
+to the participant up to this point. A stepwise linear discriminant
+analysis (SWLDA) was applied to the data from the three calibration runs
+(i.e., runs 1–3) to determine the classifier weights (i.e., classifier
+coefficients). These weights were then applied during the subsequent four
+testing runs (i.e., runs 4–7) when participants were provided with
+feedback.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r3b99899662a6-1"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
+<dd><p>A. Riccio, L. Simione, F. Schettini, A. Pizzimenti, M. Inghilleri,
+M. O. Belardinelli, D. Mattia, and F. Cincotti (2013). Attention
+and P300-based BCI performance in people with amyotrophic lateral
+sclerosis. Front. Hum. Neurosci., vol. 7:, pag. 732.</p>
+</dd>
+<dt class="label" id="r3b99899662a6-2"><span class="brackets">2</span></dt>
+<dd><p>L. A. Farwell and E. Donchin, Talking off the top of your head:
+toward a mental prosthesis utilizing eventrelated
+brain potentials, Electroencephalogr. Clin. Neurophysiol.,
+vol. 70, n. 6, pagg. 510–523, 1988.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2014009">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2014009</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2014009" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2014-009 P300 dataset.</p>
+<p>Dataset from <a class="reference internal" href="#r847929cca841-1" id="id10">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>This dataset presents a complete record of P300 evoked potentials
+using two different paradigms: a paradigm based on the P300 Speller in
+overt attention condition and a paradigm based used in covert attention
+condition. In these sessions, 10 healthy subjects focused on one out of 36
+different characters. The objective was to predict the correct character
+in each of the provided character selection epochs.
+(Note: right now only the overt attention data is available via MOABB)</p>
+<p>In the first interface, cues are organized in a 6×6 matrix and each
+character is always visible on the screen and spatially separated from the
+others. By design, no fixation cue is provided, as the subject is expected
+to gaze at the target character. Stimulation consists in the
+intensification of whole lines (rows or columns) of six characters.</p>
+<p>Ten healthy subjects (10 female, mean age = 26.8 ± 5.6, table I) with
+previous experience with P300-based BCIs attended 3 recording sessions.
+Scalp EEG potentials were measured using 16 Ag/AgCl electrodes that
+covered the left, right and central scalp (Fz, FCz, Cz, CPz, Pz, Oz, F3,
+F4, C3, C4, CP3, CP4, P3, P4, PO7, PO8) per the 10-10 standard. Each
+electrode was referenced to the linked earlobes and grounded to the
+right mastoid. The EEG was acquired at 256 Hz, high pass- and low
+pass-filtered with cutoff frequencies of 0.1 Hz and 20 Hz, respectively.
+Each subject attended 4 recording sessions. During each session,
+the subject performed three runs with each of the stimulation interfaces.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r847929cca841-1"><span class="brackets"><a class="fn-backref" href="#id10">1</a></span></dt>
+<dd><p>P Aricò, F Aloise, F Schettini, S Salinari, D Mattia and F Cincotti
+(2013). Influence of P300 latency jitter on event related potential-
+based brain–computer interface performance. Journal of Neural
+Engineering, vol. 11, number 3.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2015001">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2015001</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2015001" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2015-001 Motor Imagery dataset.</p>
+<p>Dataset from <a class="reference internal" href="#rd8501ff9bd67-1" id="id12">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>We acquired the EEG from three Laplacian derivations, 3.5 cm (center-to-
+center) around the electrode positions (according to International 10-20
+System of Electrode Placement) C3 (FC3, C5, CP3 and C1), Cz (FCz, C1, CPz
+and C2) and C4 (FC4, C2, CP4 and C6).  The acquisition hardware was a
+g.GAMMAsys active electrode system along with a g.USBamp amplifier (g.tec,
+Guger Tech- nologies OEG, Graz, Austria).  The system sampled at 512 Hz,
+with a bandpass filter between 0.5 and 100 Hz and a notch filter at 50 Hz.
+The order of the channels in the data is FC3, FCz, FC4, C5, C3, C1, Cz, C2,
+C4, C6, CP3, CPz, CP4.</p>
+<p>The task for the user was to perform sustained right hand versus both feet
+movement imagery starting from the cue (second 3) to the end of the cross
+period (sec- ond 8).  A trial started with 3 s of reference period,
+followed by a brisk audible cue and a visual cue (arrow right for right
+hand, arrow down for both feet) from second 3 to 4.25.
+The activity period, where the users received feedback, lasted from
+second 4 to 8. There was a random 2 to 3 s pause between the trials.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rd8501ff9bd67-1"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
+<dd><p>J. Faller, C. Vidaurre, T. Solis-Escalante, C. Neuper and R.
+Scherer (2012). Autocalibration and recurrent adaptation: Towards a
+plug and play online ERD- BCI.  IEEE Transactions on Neural Systems
+and Rehabilitation Engineering, 20(3), 313-319.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2015003">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2015003</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2015003" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2015-003 P300 dataset.</p>
+<p>Dataset from <a class="reference internal" href="#r2df4ed81ecad-1" id="id14">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>This dataset contains recordings from 10 subjects performing a visual P300
+task for spelling. Results were published in [1]. Sampling frequency was
+256 Hz and there were 8 electrodes (‘Fz’, ‘Cz’, ‘P3’, ‘Pz’, ‘P4’, ‘PO7’,
+‘Oz’, ‘PO8’) which were referenced to the right earlobe. Each subject
+participated in only one session. For more information, see [1].</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r2df4ed81ecad-1"><span class="brackets"><a class="fn-backref" href="#id14">1</a></span></dt>
+<dd><p>C. Guger, S. Daban, E. Sellers, C. Holzner, G. Krausz,
+R. Carabalona, F. Gramatica, and G. Edlinger (2009). How many
+people are able to control a P300-based brain-computer interface
+(BCI)?. Neuroscience Letters, vol. 462, pp. 94–98.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.BNCI2015004">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">BNCI2015004</code><a class="headerlink" href="#matrixhacker.datasets.bnci.BNCI2015004" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#matrixhacker.datasets.bnci.MNEBNCI" title="matrixhacker.datasets.bnci.MNEBNCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.bnci.MNEBNCI</span></code></a></p>
+<p>BNCI 2015-004 Motor Imagery dataset.</p>
+<p>Dataset from <a class="reference internal" href="#r4af35c25655e-1" id="id16">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>We provide EEG data recorded from nine users with disability (spinal cord
+injury and stroke) on two different days (sessions).  Users performed,
+follow- ing a cue-guided experimental paradigm, five distinct mental tasks
+(MT).  MTs include mental word association (condition WORD), mental
+subtraction (SUB), spatial navigation (NAV), right hand motor imagery
+(HAND) and
+feet motor imagery (FEET). Details on the experimental paradigm are
+summarized in Figure 1.  The session for a single subject consisted of 8
+runs resulting in 40 trials of each class for each day.  One single
+experimental run consisted of 25 cues, with 5 of each mental task.  Cues
+were presented in random order.</p>
+<p>EEG was recorded from 30 electrode channels placed on the scalp according
+to the international 10-20 system.  Electrode positions included channels
+AFz, F7, F3, Fz, F4, F8, FC3, FCz, FC4, T3, C3, Cz, C4, T4, CP3, CPz,CP4,
+P7, P5, P3, P1, Pz, P2, P4, P6, P8, PO3, PO4, O1, and O2.  Reference and
+ground were placed at the left and right mastoid, respectively.  The g.tec
+GAMMAsys system with g.LADYbird active electrodes and two g.USBamp
+biosignal
+amplifiers (Guger Technolgies, Graz, Austria) was used for recording.  EEG
+was band pass filtered 0.5-100 Hz (notch filter at 50 Hz) and sampled at a
+rate of 256 Hz.</p>
+<p>The duration of a single imagery trials is 10 s.  At t = 0 s, a cross was
+presented in the middle of the screen.  Participants were asked to relax
+and
+fixate the cross to avoid eye movements.  At t = 3 s, a beep was sounded to
+get the participant’s attention.  The cue indicating the requested imagery
+task, one out of five graphical symbols, was presented from t = 3 s to t =
+4.25 s.  At t = 10 s, a second beep was sounded and the fixation-cross
+disappeared, which indicated the end of the trial.  A variable break
+(inter-trial-interval, ITI) lasting between 2.5 s and 3.5 s occurred
+before
+the start of the next trial.  Participants were asked to avoid movements
+during the imagery period, and to move and blink during the
+ITI. Experimental runs began and ended with a blank screen (duration 4 s)</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r4af35c25655e-1"><span class="brackets"><a class="fn-backref" href="#id16">1</a></span></dt>
+<dd><p>Scherer R, Faller J, Friedrich EVC, Opisso E, Costa U, Kübler A, et
+al. (2015) Individually Adapted Imagery Improves Brain-Computer
+Interface Performance in End-Users with Disability. PLoS ONE 10(5).
+<a class="reference external" href="https://doi.org/10.1371/journal.pone.0123727">https://doi.org/10.1371/journal.pone.0123727</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.datasets.bnci.MNEBNCI">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">MNEBNCI</code><span class="sig-paren">(</span><em class="sig-param">code</em>, <em class="sig-param">subjects</em>, <em class="sig-param">events</em>, <em class="sig-param">channels</em>, <em class="sig-param">srate</em>, <em class="sig-param">paradigm</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.bnci.MNEBNCI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.datasets.base.html#matrixhacker.datasets.base.BaseDataset" title="matrixhacker.datasets.base.BaseDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.base.BaseDataset</span></code></a></p>
+<p>Base BNCI dataset</p>
+<dl class="method">
+<dt id="matrixhacker.datasets.bnci.MNEBNCI.data_path">
+<code class="sig-name descname">data_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">subject</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.bnci.MNEBNCI.data_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.bnci.data_path">
+<code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">data_path</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=None</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.bnci.data_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.bnci.load_data">
+<code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">load_data</code><span class="sig-paren">(</span><em class="sig-param">subject</em>, <em class="sig-param">dataset='001-2014'</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=None</em>, <em class="sig-param">base_url='http://bnci-horizon-2020.eu/database/data-sets/'</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.bnci.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get paths to local copies of a BNCI dataset files.</p>
+<p>This will fetch data for a given BNCI dataset. Report to the bnci website
+for a complete description of the experimental setup of each dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>subject</strong><span class="classifier">int</span></dt><dd><p>The subject to load.</p>
+</dd>
+<dt><strong>dataset</strong><span class="classifier">string</span></dt><dd><p>The bnci dataset name.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">None | str</span></dt><dd><p>Location of where to look for the BNCI data storing location.
+If None, the environment variable or config parameter
+<code class="docutils literal notranslate"><span class="pre">MNE_DATASETS_BNCI_PATH</span></code> is used. If it doesn’t exist, the
+“~/mne_data” directory is used. If the BNCI dataset
+is not found under the given path, the data
+will be automatically downloaded to the specified folder.</p>
+</dd>
+<dt><strong>force_update</strong><span class="classifier">bool</span></dt><dd><p>Force update of the dataset even if a local copy exists.</p>
+</dd>
+<dt><strong>update_path</strong><span class="classifier">bool | None</span></dt><dd><p>If True, set the MNE_DATASETS_BNCI_PATH in mne-python
+config to the given path. If None, the user is prompted.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, str, int, or None</span></dt><dd><p>If not None, override default verbose level (see <code class="xref py py-func docutils literal notranslate"><span class="pre">mne.verbose()</span></code>
+and <span class="xref std std-ref">Logging documentation</span> for more).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>raws</strong><span class="classifier">list</span></dt><dd><p>List of raw instances for each non consecutive recording. Depending
+on the dataset it could be a BCI run or a different recording session.</p>
+</dd>
+<dt>event_id: dict</dt><dd><p>dictonary containing events and their code.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.datasets.bnci.standardize_keys">
+<code class="sig-prename descclassname">matrixhacker.datasets.bnci.</code><code class="sig-name descname">standardize_keys</code><span class="sig-paren">(</span><em class="sig-param">d</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.bnci.standardize_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.datasets.bnci.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

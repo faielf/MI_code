@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.manifold.riemann module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.manifold.riemann">
+<span id="matrixhacker-algorithms-manifold-riemann-module"></span><h1>matrixhacker.algorithms.manifold.riemann module<a class="headerlink" href="#module-matrixhacker.algorithms.manifold.riemann" title="Permalink to this headline">¶</a></h1>
+<p>Most riemann methods are herited from Alexandre Barachant’s pyRiemann package.</p>
+<p>Some signatures are modified and simplified according to my personal needs.
+If you prefer original methods, see <a class="reference external" href="https://github.com/alexandrebarachant/pyRiemann">https://github.com/alexandrebarachant/pyRiemann</a> for more details.</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.FGDA">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">FGDA</code><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FGDA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Fisher Geodesic Discriminant analysis.</p>
+<p>Project data in Tangent space, apply a FLDA to reduce dimention, and
+project filtered data back in the manifold.
+For a complete description of the algorithm, see [1]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string (default: ‘riemann’)</span></dt><dd><p>The type of metric used for reference point mean estimation.
+see <cite>mean_covariance</cite> for the list of supported metric.</p>
+</dd>
+<dt><strong>tsupdate</strong><span class="classifier">bool (default False)</span></dt><dd><p>Activate tangent space update for covariante shift correction between
+training and test, as described in [2]. This is not compatible with
+online implementation. Performance are better when the number of trials
+for prediction is higher.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.FgMDM" title="matrixhacker.algorithms.manifold.riemann.FgMDM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FgMDM</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace" title="matrixhacker.algorithms.manifold.riemann.TangentSpace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TangentSpace</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>[1] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Riemannian geometry
+applied to BCI classification”, 9th International Conference Latent
+Variable Analysis and Signal Separation (LVA/ICA 2010), LNCS vol. 6365,
+2010, p. 629-636.</p>
+<p>[2] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Classification of
+covariance matrices using a Riemannian-based kernel for BCI applications”,
+in NeuroComputing, vol. 112, p. 172-178, 2013.</p>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FGDA.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FGDA.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit (estimates) the reference point and the FLDA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray</span></dt><dd><p>Not used, here for compatibility with sklearn API.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">ndarray | None (default None)</span></dt><dd><p>weight of each sample.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">FGDA instance</span></dt><dd><p>The FGDA instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FGDA.fit_transform">
+<code class="sig-name descname">fit_transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FGDA.fit_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit and transform in a single function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray | None (default None)</span></dt><dd><p>Not used, here for compatibility with sklearn API.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">ndarray | None (default None)</span></dt><dd><p>weight of each sample.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covs</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>covariances matrices after filtering.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FGDA.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FGDA.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filtering operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covs</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>covariances matrices after filtering.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.FgMDM">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">FgMDM</code><span class="sig-paren">(</span><em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FgMDM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClassifierMixin</span></code></p>
+<p>Classification by Minimum Distance to Mean with geodesic filtering.</p>
+<p>Apply geodesic filtering described in [1], and classify using MDM algorithm
+The geodesic filtering is achieved in tangent space with a Linear
+Discriminant Analysis, then data are projected back to the manifold and
+classifier with a regular mdm.
+This is basically a pipeline of FGDA and MDM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string | dict (default: ‘riemann’)</span></dt><dd><p>The type of metric used for centroid and distance estimation.
+see <cite>mean_covariance</cite> for the list of supported metric.
+the metric could be a dict with two keys, <cite>mean</cite> and <cite>distance</cite> in
+order to pass different metric for the centroid estimation and the
+distance estimation. Typical usecase is to pass ‘logeuclid’ metric for
+the mean in order to boost the computional speed and ‘riemann’ for the
+distance in order to keep the good sensitivity for the classification.</p>
+</dd>
+<dt><strong>tsupdate</strong><span class="classifier">bool (default False)</span></dt><dd><p>Activate tangent space update for covariante shift correction between
+training and test, as described in [2]. This is not compatible with
+online implementation. Performance are better when the number of trials
+for prediction is higher.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, (default: 1)</span></dt><dd><p>The number of jobs to use for the computation. This works by computing
+each of the class centroid in parallel.
+If -1 all CPUs are used. If 1 is given, no parallel computing code is
+used at all, which is useful for debugging. For n_jobs below -1,
+(n_cpus + 1 + n_jobs) are used. Thus for n_jobs = -2, all CPUs but one
+are used.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.MDM" title="matrixhacker.algorithms.manifold.riemann.MDM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MDM</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.FGDA" title="matrixhacker.algorithms.manifold.riemann.FGDA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FGDA</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace" title="matrixhacker.algorithms.manifold.riemann.TangentSpace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TangentSpace</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>[1] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Riemannian geometry
+applied to BCI classification”, 9th International Conference Latent
+Variable Analysis and Signal Separation (LVA/ICA 2010), LNCS vol. 6365,
+2010, p. 629-636.</p>
+<p>[2] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Classification of
+covariance matrices using a Riemannian-based kernel for BCI applications”,
+in NeuroComputing, vol. 112, p. 172-178, 2013.</p>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FgMDM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FgMDM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit FgMDM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray shape (n_trials, 1)</span></dt><dd><p>labels corresponding to each trial.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">FgMDM instance</span></dt><dd><p>The FgMDM instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FgMDM.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FgMDM.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the predictions after FDA filtering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pred</strong><span class="classifier">ndarray of int, shape (n_trials, 1)</span></dt><dd><p>the prediction for each trials according to the closest centroid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.FgMDM.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.FgMDM.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the distance to each centroid after FGDA filtering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>dist</strong><span class="classifier">ndarray, shape (n_trials, n_cluster)</span></dt><dd><p>the distance to each centroid according to the metric.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">MDM</code><span class="sig-paren">(</span><em class="sig-param">use_trace=True</em>, <em class="sig-param">n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClassifierMixin</span></code></p>
+<p>Classification by Minimum Distance to Mean.</p>
+<p>Classification by nearest centroid. For each of the given classes, a
+centroid is estimated according to the chosen metric. Then, for each new
+point, the class is affected according to the nearest centroid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string | dict (default: ‘riemann’)</span></dt><dd><p>The type of metric used for centroid and distance estimation.
+see <cite>mean_covariance</cite> for the list of supported metric.
+the metric could be a dict with two keys, <cite>mean</cite> and <cite>distance</cite> in
+order to pass different metric for the centroid estimation and the
+distance estimation. Typical usecase is to pass ‘logeuclid’ metric for
+the mean in order to boost the computional speed and ‘riemann’ for the
+distance in order to keep the good sensitivity for the classification.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, (default: 1)</span></dt><dd><p>The number of jobs to use for the computation. This works by computing
+each of the class centroid in parallel.
+If -1 all CPUs are used. If 1 is given, no parallel computing code is
+used at all, which is useful for debugging. For n_jobs below -1,
+(n_cpus + 1 + n_jobs) are used. Thus for n_jobs = -2, all CPUs but one
+are used.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kmeans</span></code></dt><dd></dd>
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.FgMDM" title="matrixhacker.algorithms.manifold.riemann.FgMDM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FgMDM</span></code></a></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">KNearestNeighbor</span></code></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>[1] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Multiclass
+Brain-Computer Interface Classification by Riemannian Geometry,” in IEEE
+Transactions on Biomedical Engineering, vol. 59, no. 4, p. 920-928, 2012.</p>
+<p>[2] A. Barachant, S. Bonnet, M. Congedo and C. Jutten, “Riemannian geometry
+applied to BCI classification”, 9th International Conference Latent
+Variable Analysis and Signal Separation (LVA/ICA 2010), LNCS vol. 6365,
+2010, p. 629-636.</p>
+<p class="rubric">Attributes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>covmeans_</strong></p></td>
+<td><p>(list) the class centroids.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>classes_</strong></p></td>
+<td><p>(list) list of classes.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit (estimates) the centroids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray shape (n_trials, 1)</span></dt><dd><p>labels corresponding to each trial.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">None | ndarray shape (n_trials, 1)</span></dt><dd><p>the weights of each sample. if None, each sample is treated with
+equal weights.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">MDM instance</span></dt><dd><p>The MDM instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM.fit_predict">
+<code class="sig-name descname">fit_predict</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM.fit_predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit and predict in one function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">covtest</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pred</strong><span class="classifier">ndarray of int, shape (n_trials, 1)</span></dt><dd><p>the prediction for each trials according to the closest centroid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM.predict_proba">
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict proba using softmax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>prob</strong><span class="classifier">ndarray, shape (n_trials, n_classes)</span></dt><dd><p>the softmax probabilities for each class.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.MDM.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.MDM.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the distance to each centroid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>dist</strong><span class="classifier">ndarray, shape (n_trials, n_classes)</span></dt><dd><p>the distance to each centroid according to the metric.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.Potato">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">Potato</code><span class="sig-paren">(</span><em class="sig-param">threshold=3</em>, <em class="sig-param">n_iter_max=100</em>, <em class="sig-param">pos_label=1</em>, <em class="sig-param">neg_label=0</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.Potato" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClassifierMixin</span></code></p>
+<p>Artefact detection with the Riemannian Potato.</p>
+<p>The Riemannian Potato [1] is a clustering method used to detect artifact in
+EEG signals. The algorithm iteratively estimate the centroid of clean
+signal by rejecting every trial that have a distance greater than several
+standard deviation from it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string (default ‘riemann’)</span></dt><dd><p>The type of metric used for centroid and distance estimation.</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">int (default 3)</span></dt><dd><p>The number of standard deviation to reject artifacts.</p>
+</dd>
+<dt><strong>n_iter_max</strong><span class="classifier">int (default 100)</span></dt><dd><p>The maximum number of iteration to reach convergence.</p>
+</dd>
+<dt><strong>pos_label: int (default 1)</strong></dt><dd><p>The positive label corresponding to clean data</p>
+</dd>
+<dt><strong>neg_label: int (default 0)</strong></dt><dd><p>The negative label corresponding to artifact data</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">Kmeans</span></code></dt><dd></dd>
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.MDM" title="matrixhacker.algorithms.manifold.riemann.MDM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MDM</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.3.</span></p>
+</div>
+<p class="rubric">References</p>
+<p>[1] A. Barachant, A. Andreev and M. Congedo, “The Riemannian Potato: an
+automatic and adaptive artifact detection method for online experiments
+using Riemannian geometry”, in Proceedings of TOBI Workshop IV, p. 19-20,
+2013.</p>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.Potato.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.Potato.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the potato from covariance matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray | None (default None)</span></dt><dd><p>Not used, here for compatibility with sklearn API.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Potato instance</span></dt><dd><p>The Potato instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.Potato.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.Potato.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict artefact from data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pred</strong><span class="classifier">ndarray of bool, shape (n_epochs, 1)</span></dt><dd><p>the artefact detection. True if the trial is clean, and False if
+the trial contain an artefact.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.Potato.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.Potato.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the normalized log-distance to the centroid (z-score).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>z</strong><span class="classifier">ndarray, shape (n_epochs, 1)</span></dt><dd><p>the normalized log-distance to the centroid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.TSclassifier">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">TSclassifier</code><span class="sig-paren">(</span><em class="sig-param">clf=LogisticRegression(C=1.0</em>, <em class="sig-param">class_weight=None</em>, <em class="sig-param">dual=False</em>, <em class="sig-param">fit_intercept=True</em>, <em class="sig-param">intercept_scaling=1</em>, <em class="sig-param">l1_ratio=None</em>, <em class="sig-param">max_iter=100</em>, <em class="sig-param">multi_class='auto'</em>, <em class="sig-param">n_jobs=None</em>, <em class="sig-param">penalty='l2'</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">solver='lbfgs'</em>, <em class="sig-param">tol=0.0001</em>, <em class="sig-param">verbose=0</em>, <em class="sig-param">warm_start=False)</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TSclassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.ClassifierMixin</span></code></p>
+<p>Classification in the tangent space.</p>
+<p>Project data in the tangent space and apply a classifier on the projected
+data. This is a simple helper to pipeline the tangent space projection and
+a classifier. Default classifier is LogisticRegression</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>metric</strong><span class="classifier">string | dict (default: ‘riemann’)</span></dt><dd><p>The type of metric used for centroid and distance estimation.
+see <cite>mean_covariance</cite> for the list of supported metric.
+the metric could be a dict with two keys, <cite>mean</cite> and <cite>distance</cite> in
+order to pass different metric for the centroid estimation and the
+distance estimation. Typical usecase is to pass ‘logeuclid’ metric for
+the mean in order to boost the computional speed and ‘riemann’ for the
+distance in order to keep the good sensitivity for the classification.</p>
+</dd>
+<dt><strong>tsupdate</strong><span class="classifier">bool (default False)</span></dt><dd><p>Activate tangent space update for covariante shift correction between
+training and test, as described in [2]. This is not compatible with
+online implementation. Performance are better when the number of trials
+for prediction is higher.</p>
+</dd>
+<dt><strong>clf: sklearn classifier (default LogisticRegression)</strong></dt><dd><p>The classifier to apply in the tangent space</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace" title="matrixhacker.algorithms.manifold.riemann.TangentSpace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TangentSpace</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.4.</span></p>
+</div>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TSclassifier.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TSclassifier.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit TSclassifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">ndarray shape (n_trials, 1)</span></dt><dd><p>labels corresponding to each trial.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">TSclassifier. instance</span></dt><dd><p>The TSclassifier. instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TSclassifier.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TSclassifier.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pred</strong><span class="classifier">ndarray of int, shape (n_trials, 1)</span></dt><dd><p>the prediction for each trials according to the closest centroid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TSclassifier.predict_proba">
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TSclassifier.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray, shape (n_trials, n_channels, n_channels)</span></dt><dd><p>ndarray of SPD matrices.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pred</strong><span class="classifier">ndarray of ifloat, shape (n_trials, n_classes)</span></dt><dd><p>the prediction for each trials according to the closest centroid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="matrixhacker.algorithms.manifold.riemann.TangentSpace">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">TangentSpace</code><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.TransformerMixin</span></code></p>
+<p>Tangent space projection.</p>
+<p class="rubric">Attributes</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>reference_</strong></p></td>
+<td><p>(ndarray) If fit, the reference point for tangent space mapping.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TangentSpace.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em>, <em class="sig-param">sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the reference point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>SPD matrices, shape (n_trials, n_channels,n_channels).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None|ndarray, optional</span></dt><dd><p>Not used, here for compatibility with sklearn API.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">None|ndarray, optional</span></dt><dd><p>Weight of each trial (default None). If None provided, weights init to 1, otherwise, weights are normalized.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">TangentSpace instance</span></dt><dd><p>The TangentSpace instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TangentSpace.inverse_transform">
+<code class="sig-name descname">inverse_transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace.inverse_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse transform.</p>
+<p>Project back a set of tangent space vector in the manifold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>SPD matrices, shape (n_trials, n_channels*(n_channels+1)/2).</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">None|ndarray, optional</span></dt><dd><p>Not used, here for compatibility with sklearn API.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>cov</strong><span class="classifier">ndarray</span></dt><dd><p>The covariance matrices corresponding to each of tangent vector, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.manifold.riemann.TangentSpace.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.TangentSpace.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tangent space projection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>SPD matrices, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ts</strong><span class="classifier">ndarray</span></dt><dd><p>The tangent space projection of the matrices, shape (n_trials, n_channels*(n_channels+1)/2).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.adapt_domain">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">adapt_domain</code><span class="sig-paren">(</span><em class="sig-param">domain_centroids</em>, <em class="sig-param">m_centroid</em>, <em class="sig-param">X</em>, <em class="sig-param">domain_id</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.adapt_domain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.distance_riemann">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">distance_riemann</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">B</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.distance_riemann" title="Permalink to this definition">¶</a></dt>
+<dd><p>Riemannian distance between two covariance matrices A and B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">ndarray</span></dt><dd><p>First positive-definite matrix, shape (n_trials, n_channels, n_channels) or (n_channels, n_channels).</p>
+</dd>
+<dt><strong>B</strong><span class="classifier">ndarray</span></dt><dd><p>Second positive-definite matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray | float</dt><dd><p>Riemannian distance between A and B.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[d = {\left( \sum_i \log(\lambda_i)^2 \right)}^{-1/2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_i\)</span> are the joint eigenvalues of A and B.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.expmap">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">expmap</code><span class="sig-paren">(</span><em class="sig-param">Si</em>, <em class="sig-param">P</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.expmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Project the tangent plane vector to manifold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Si</strong><span class="classifier">ndarray</span></dt><dd></dd>
+<dt><strong>P</strong><span class="classifier">[type]</span></dt><dd><p>[description]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>[type]</dt><dd><p>[description]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.geodesic">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">geodesic</code><span class="sig-paren">(</span><em class="sig-param">P1</em>, <em class="sig-param">P2</em>, <em class="sig-param">t</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.geodesic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.geodesic_riemann">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">geodesic_riemann</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">B</em>, <em class="sig-param">alpha=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.geodesic_riemann" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the matrix at the position alpha on the riemannian geodesic between A and B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">ndarray</span></dt><dd><p>First positive-definite matrix.</p>
+</dd>
+<dt><strong>B</strong><span class="classifier">ndarray</span></dt><dd><p>Second positive-definite matrix.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float, optional</span></dt><dd><p>Position between A and B, range from 0 to 1 (default 0.5).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>E</strong><span class="classifier">ndarray</span></dt><dd><p>The matrix at the position alpha on the riemannian geodesic between A and B.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{E} = \mathbf{A}^{1/2} \left( \mathbf{A}^{-1/2} \mathbf{B} \mathbf{A}^{-1/2} \right)^\alpha \mathbf{A}^{1/2}\]</div>
+<p>where E is equal to A if alpha = 0 and B if alpha = 1.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.logmap">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">logmap</code><span class="sig-paren">(</span><em class="sig-param">Pi</em>, <em class="sig-param">P</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.logmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logarithm map.</p>
+<p>Logarithm map projects <span class="math notranslate nohighlight">\(\mathbf{P}_i \in \mathcal{M}\)</span> to the tangent space point 
+<span class="math notranslate nohighlight">\(\mathbf{S}_i \in \mathcal{T}_{\mathbf{P}} \mathcal{M}\)</span> at <span class="math notranslate nohighlight">\(\mathbf{P} \in \mathcal{M}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Pi</strong><span class="classifier">ndarray</span></dt><dd><p>SPD matrix.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">ndarray</span></dt><dd><p>Reference point.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Si</strong><span class="classifier">ndarray</span></dt><dd><p>Tangent space point (in matrix form).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{S}_i = Log_{\mathbf{P}}(\mathbf{P}_i)\]</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.mean_riemann">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">mean_riemann</code><span class="sig-paren">(</span><em class="sig-param">covmats</em>, <em class="sig-param">tol=1e-08</em>, <em class="sig-param">maxiter=100</em>, <em class="sig-param">init=None</em>, <em class="sig-param">sample_weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.mean_riemann" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the mean covariance matrix according to the Riemannian metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices set, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, optional</span></dt><dd><p>The tolerance to stop the gradient descent (default 1e-8).</p>
+</dd>
+<dt><strong>maxiter</strong><span class="classifier">int, optional</span></dt><dd><p>The maximum number of iteration (default 50).</p>
+</dd>
+<dt><strong>init</strong><span class="classifier">None|ndarray, optional</span></dt><dd><p>A covariance matrix used to initialize the gradient descent (default None), if None the arithmetic mean is used.</p>
+</dd>
+<dt><strong>sample_weight</strong><span class="classifier">None|ndarray, optional</span></dt><dd><p>The weight of each sample (efault None), if None weights are 1 otherwise weights are normalized.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>C</strong><span class="classifier">ndarray</span></dt><dd><p>The Riemannian mean covariance matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The procedure is similar to a gradient descent minimizing the sum of riemannian distance to the mean.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \arg \min{(\sum_i \delta_R ( \mathbf{C} , \mathbf{C}_i)^2)}\]</div>
+<p>where :math:delta_R is riemann distance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.parallel_transport">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">parallel_transport</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">B</em>, <em class="sig-param">Pb</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.parallel_transport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.tangent_space">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">tangent_space</code><span class="sig-paren">(</span><em class="sig-param">covmats</em>, <em class="sig-param">Cref</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.tangent_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Project a set of covariance matrices in the tangent space according to the given reference point Cref.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>Covariance matrices set, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>Cref</strong><span class="classifier">ndarray</span></dt><dd><p>The reference covariance matrix, shape (n_chanenls, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">ndarray</span></dt><dd><p>The tangent space vector, shape (n_trials, n_channels*(n_channels+1)/2)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method whitens covmats with Cref first, then map them to tangent space by <cite>logm</cite> weighted appropriate coeffs. 
+Only upper-triangle part of matrices are kept.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.manifold.riemann.untangent_space">
+<code class="sig-prename descclassname">matrixhacker.algorithms.manifold.riemann.</code><code class="sig-name descname">untangent_space</code><span class="sig-paren">(</span><em class="sig-param">T</em>, <em class="sig-param">Cref</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.manifold.riemann.untangent_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Project a set of Tangent space vectors in the manifold according to the given reference point Cref.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">ndarray</span></dt><dd><p>The tangent space vector, shape (n_trials, n_channels*(n_channels+1)/2).</p>
+</dd>
+<dt><strong>Cref</strong><span class="classifier">ndarray</span></dt><dd><p>The reference covariance matrix, shape (n_chanenls, n_channels).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>covmats</strong><span class="classifier">ndarray</span></dt><dd><p>Unwhitening covariance matrices set, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This method does same operations as <cite>tangent_space</cite> in reversed order.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.manifold.riemann.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

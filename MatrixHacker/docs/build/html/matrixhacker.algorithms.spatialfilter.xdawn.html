@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.spatialfilter.xdawn module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.spatialfilter.xdawn">
+<span id="matrixhacker-algorithms-spatialfilter-xdawn-module"></span><h1>matrixhacker.algorithms.spatialfilter.xdawn module<a class="headerlink" href="#module-matrixhacker.algorithms.spatialfilter.xdawn" title="Permalink to this headline">¶</a></h1>
+<p>Xdawn.</p>
+<dl class="class">
+<dt id="matrixhacker.algorithms.spatialfilter.xdawn.Xdawn">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.xdawn.</code><code class="sig-name descname">Xdawn</code><span class="sig-paren">(</span><em class="sig-param">n_filters=4</em>, <em class="sig-param">estimator='lwf'</em>, <em class="sig-param">use_trace=False</em>, <em class="sig-param">baseline_cov=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.xdawn.Xdawn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.algorithms.spatialfilter.base.html#matrixhacker.algorithms.spatialfilter.base.LinearFilter" title="matrixhacker.algorithms.spatialfilter.base.LinearFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.algorithms.spatialfilter.base.LinearFilter</span></code></a></p>
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.xdawn.Xdawn.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.xdawn.Xdawn.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do nothing, be compatiable with sklearn API.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.algorithms.spatialfilter.xdawn.Xdawn.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.xdawn.Xdawn.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform X with linear filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Input data, shape (…., n_channels, n_samples).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xf</strong><span class="classifier">ndarray</span></dt><dd><p>Linear filted data, shape (…, n_filters, n_samples).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.spatialfilter.xdawn.xdawn_kernel">
+<code class="sig-prename descclassname">matrixhacker.algorithms.spatialfilter.xdawn.</code><code class="sig-name descname">xdawn_kernel</code><span class="sig-paren">(</span><em class="sig-param">Cs</em>, <em class="sig-param">Cn</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.spatialfilter.xdawn.xdawn_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>The kernerl in Xdawn algorithm based on paper[1][2].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Cs</strong><span class="classifier">ndarray</span></dt><dd><p>ERP template signal, shape (n_classes, n_channels, n_channels)</p>
+</dd>
+<dt><strong>Cn</strong><span class="classifier">ndarray</span></dt><dd><p>noise signal, shape (n_channels, n_channels)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Ws: ndarray</dt><dd><p>spatial filters, shape (n_classes, n_filters, n_channels)</p>
+</dd>
+<dt>Ds: ndarray</dt><dd><p>eigenvalues of Ws, shape (n_classes, n_filters)</p>
+</dd>
+<dt>As: ndarray</dt><dd><p>spatial patterns, shape(n_classes, n_filters, n_channels), use robust method in paper[3].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] Rivet, B., Souloumiac, A., Attina, V., &amp; Gibert, G. (2009). xDAWN algorithm to enhance evoked potentials: application to brain-computer interface. Biomedical Engineering, IEEE Transactions on, 56(8), 2035-2043.
+[2] Rivet, B., Cecotti, H., Souloumiac, A., Maby, E., &amp; Mattout, J. (2011, August). Theoretical analysis of xDAWN algorithm: application to an efficient sensor selection in a P300 BCI. In Signal Processing Conference, 2011 19th European (pp. 1382-1386). IEEE.
+[3] Haufe, Stefan, et al. “On the interpretation of weight vectors of linear models in multivariate neuroimaging.” Neuroimage 87 (2014): 96-110.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.spatialfilter.xdawn.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

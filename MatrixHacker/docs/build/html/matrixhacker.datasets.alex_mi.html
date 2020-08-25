@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.datasets.alex_mi module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.datasets.alex_mi">
+<span id="matrixhacker-datasets-alex-mi-module"></span><h1>matrixhacker.datasets.alex_mi module<a class="headerlink" href="#module-matrixhacker.datasets.alex_mi" title="Permalink to this headline">¶</a></h1>
+<p>Alex Motor imagery dataset.</p>
+<dl class="class">
+<dt id="matrixhacker.datasets.alex_mi.AlexMI">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.datasets.alex_mi.</code><code class="sig-name descname">AlexMI</code><a class="headerlink" href="#matrixhacker.datasets.alex_mi.AlexMI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="matrixhacker.datasets.base.html#matrixhacker.datasets.base.BaseDataset" title="matrixhacker.datasets.base.BaseDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixhacker.datasets.base.BaseDataset</span></code></a></p>
+<p>Alex Motor Imagery dataset.</p>
+<p>Motor imagery dataset from the PhD dissertation of A. Barachant <a class="reference internal" href="#r81dd17ddda13-1" id="id1"><span>[R81dd17ddda13-1]</span></a>.</p>
+<p>This Dataset contains EEG recordings from 8 subjects, performing 2 task of
+motor imagination (right hand, feet or rest). Data have been recorded at
+512Hz with 16 wet electrodes (Fpz, F7, F3, Fz, F4, F8, T7, C3, Cz, C4, T8,
+P7, P3, Pz, P4, P8) with a g.tec g.USBamp EEG amplifier.</p>
+<p>File are provided in MNE raw file format. A stimulation channel encoding
+the timing of the motor imagination. The start of a trial is encoded as 1,
+then the actual start of the motor imagination is encoded with 2 for
+imagination of a right hand movement, 3 for imagination of both feet
+movement and 4 with a rest trial.</p>
+<p>The duration of each trial is 3 second. There is 20 trial of each class.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r81dd17ddda13-1"><span class="brackets"><a class="fn-backref" href="#id1">R81dd17ddda13-1</a></span></dt>
+<dd><p>Barachant, A., 2012. Commande robuste d’un effecteur par une
+interface cerveau machine EEG asynchrone (Doctoral dissertation,
+Université de Grenoble).
+<a class="reference external" href="https://tel.archives-ouvertes.fr/tel-01196752">https://tel.archives-ouvertes.fr/tel-01196752</a></p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.datasets.alex_mi.AlexMI.data_path">
+<code class="sig-name descname">data_path</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">subject</em>, <em class="sig-param">path=None</em>, <em class="sig-param">force_update=False</em>, <em class="sig-param">update_path=False</em>, <em class="sig-param">verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.datasets.alex_mi.AlexMI.data_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.datasets.alex_mi.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

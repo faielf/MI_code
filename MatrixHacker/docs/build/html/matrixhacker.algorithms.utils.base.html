@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.algorithms.utils.base module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.algorithms.utils.base">
+<span id="matrixhacker-algorithms-utils-base-module"></span><h1>matrixhacker.algorithms.utils.base module<a class="headerlink" href="#module-matrixhacker.algorithms.utils.base" title="Permalink to this headline">¶</a></h1>
+<p>Basic matrix operation methods.</p>
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.crossdot">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">crossdot</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.crossdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for high dimensional <span class="math notranslate nohighlight">\(\mathbf{X} \mathbf{X}^T\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>High dimensional EEG matrix, shape (…, n_channels, n_samples).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>cov_X</strong><span class="classifier">ndarray</span></dt><dd><p>Matrix multiplication result of X, shape (…, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.expm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">expm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.expm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the matrix exponential of a covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Exponential matrix of Ci.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \mathbf{V} \exp{(\mathbf{\Lambda})} \mathbf{V}^T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.invsqrtm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">invsqrtm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.invsqrtm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the inverse matrix square root of a covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Inverse matrix square root of Ci.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \mathbf{V} \left( \mathbf{\Lambda} \right)^{-1/2} \mathbf{V}^T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.isPD">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">isPD</code><span class="sig-paren">(</span><em class="sig-param">B</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.isPD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true when input matrix is positive-definite, via Cholesky decompositon method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>B</strong><span class="classifier">ndarray</span></dt><dd><p>Any matrix, shape (N, N)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>bool</dt><dd><p>True if B is positve-definite.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Use numpy.linalg rather than scipy.linalg. In this case, scipy.linalg has unpredictable behaviors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.logm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">logm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.logm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the matrix logrithm of a covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Logrithm matrix of Ci.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \mathbf{V} \log{(\mathbf{\Lambda})} \mathbf{V}^T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.matrix_operator">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">matrix_operator</code><span class="sig-paren">(</span><em class="sig-param">Ci</em>, <em class="sig-param">operator</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.matrix_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply operator to any matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive definite matrix.</p>
+</dd>
+<dt><strong>operator</strong><span class="classifier">callable object</span></dt><dd><p>Operator function or callable object.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Co</strong><span class="classifier">ndarray</span></dt><dd><p>Operated matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If Ci is not positive definite.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{Ci} = \mathbf{V} \left( \mathbf{\Lambda} \right) \mathbf{V}^T \\
+\mathbf{Co} = \mathbf{V} operator\left( \mathbf{\Lambda} \right) \mathbf{V}^T\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.nearestPD">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">nearestPD</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.nearestPD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the nearest positive-definite matrix to input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">ndarray</span></dt><dd><p>Any square matrxi, shape (N, N)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>A3</strong><span class="classifier">ndarray</span></dt><dd><p>positive-definite matrix to A</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>A Python/Numpy port of John D’Errico’s <cite>nearestSPD</cite> MATLAB code <a class="reference internal" href="#rc1fcaa22481a-1" id="id1">[1]</a>, which
+origins at <a class="reference internal" href="#rc1fcaa22481a-2" id="id2">[2]</a>.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rc1fcaa22481a-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.mathworks.com/matlabcentral/fileexchange/42885-nearestspd">https://www.mathworks.com/matlabcentral/fileexchange/42885-nearestspd</a></p>
+</dd>
+<dt class="label" id="rc1fcaa22481a-2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>N.J. Higham, “Computing a nearest symmetric positive semidefinite matrix” (1988): <a class="reference external" href="https://doi.org/10.1016/0024-3795(88)90223-6">https://doi.org/10.1016/0024-3795(88)90223-6</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.powm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">powm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em>, <em class="sig-param">alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.powm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the matrix power of a covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrix.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Exponent.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Power matrix of Ci.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \mathbf{V} \left( \mathbf{\Lambda} \right)^{\alpha} \mathbf{V}^T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.sqrtm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">sqrtm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.sqrtm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the matrix square root of a covariance matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>ndarray</dt><dd><p>Square root matrix of Ci.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \mathbf{V} \left( \mathbf{\Lambda} \right)^{1/2} \mathbf{V}^T\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Lambda}\)</span> is the diagonal matrix of eigenvalues
+and <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> the eigenvectors of <span class="math notranslate nohighlight">\(\mathbf{Ci}\)</span>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.unwhitenm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">unwhitenm</code><span class="sig-paren">(</span><em class="sig-param">wCi</em>, <em class="sig-param">R</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.unwhitenm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unwhitening matrix Ci with reference matrix R.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>wCi</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrices, which references to Identity matrix (already whitened), shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>R</strong><span class="classifier">ndarray</span></dt><dd><p>The reference positive-definite matrix R, shape (n_channels, n_channels).</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Unwhitening matrix of Ci, which references to R, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{Ci} = \mathbf{R}^{1/2} \left( \mathbf{wCi} \right) \mathbf{R}^{1/2}\]</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="matrixhacker.algorithms.utils.base.whitenm">
+<code class="sig-prename descclassname">matrixhacker.algorithms.utils.base.</code><code class="sig-name descname">whitenm</code><span class="sig-paren">(</span><em class="sig-param">Ci</em>, <em class="sig-param">R</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.algorithms.utils.base.whitenm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whitening matrix Ci with reference matrix R.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ci</strong><span class="classifier">ndarray</span></dt><dd><p>Input positive-definite matrices, which references to R, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+<dt><strong>R</strong><span class="classifier">ndarray</span></dt><dd><p>The reference positive-definite matrix R, shape (n_channels, n_channels).</p>
+</dd>
+<dt><strong>Returns</strong></dt><dd></dd>
+<dt><strong>——-</strong></dt><dd></dd>
+<dt><strong>wCi</strong><span class="classifier">ndarray</span></dt><dd><p>Whitening matrix of Ci, which references to Identity marix, shape (n_trials, n_channels, n_channels).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The idea origins in cross-subject transfer learning <a class="reference internal" href="#r60045b561dca-1" id="id5">[1]</a>, which also performs well at cross-session situation <a class="reference internal" href="#r60045b561dca-2" id="id6">[2]</a>.
+The key is to map current covariance matrix with respect to an uniform baseline matrix (Identity matrix) 
+so that we can compare them under the same coordinate system.
+Thanks to the congruence invariance property of the Riemannian distance, 
+the distances between points of the same session or subject remains unchanged.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{wCi} = \mathbf{R}^{-1/2} \left( \mathbf{Ci} \right) \mathbf{R}^{-1/2}\]</div>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r60045b561dca-1"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p>Reuderink, Boris, et al. “A subject-independent brain-computer interface based on smoothed, second-order baselining.” 2011 Annual International Conference of the IEEE Engineering in Medicine and Biology Society. IEEE, 2011.</p>
+</dd>
+<dt class="label" id="r60045b561dca-2"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
+<dd><p>Zanini, Paolo, et al. “Transfer learning: a Riemannian geometry framework with applications to brain–computer interfaces.” IEEE Transactions on Biomedical Engineering 65.5 (2017): 1107-1116.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.algorithms.utils.base.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>matrixhacker.paradigms.base module &#8212; MatrixHacker 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-matrixhacker.paradigms.base">
+<span id="matrixhacker-paradigms-base-module"></span><h1>matrixhacker.paradigms.base module<a class="headerlink" href="#module-matrixhacker.paradigms.base" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="matrixhacker.paradigms.base.BaseParadigm">
+<em class="property">class </em><code class="sig-prename descclassname">matrixhacker.paradigms.base.</code><code class="sig-name descname">BaseParadigm</code><span class="sig-paren">(</span><em class="sig-param">channels=None</em>, <em class="sig-param">events=None</em>, <em class="sig-param">intervals=None</em>, <em class="sig-param">srate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract Base Paradigm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>channels</strong><span class="classifier">None|list of str, optional</span></dt><dd><p>Selected channel names, if None use all channels in dataset.</p>
+</dd>
+<dt><strong>events</strong><span class="classifier">None|list of str, optional</span></dt><dd><p>Selected event names, if None use all events in dataset.</p>
+</dd>
+<dt><strong>intervals</strong><span class="classifier">None|list of tuple of length 2, optional</span></dt><dd><p>Selected event intervals, if None use default intervals in dataset. 
+If only one interval passed, all events use the same interval.
+Otherwise the number of tuples should be the same as the number of events.</p>
+</dd>
+<dt><strong>srate: None|float, optional</strong></dt><dd><p>Selected sampling rate, if None use default srate in dataset. Otherwise which resampling startegy should i use.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em>, <em class="sig-param">subjects=None</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data from dataset with selected subjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset</strong><span class="classifier">Dataset instance.</span></dt><dd><p>Dataset.</p>
+</dd>
+<dt><strong>subjects</strong><span class="classifier">None|list of int, optional</span></dt><dd><p>Selected subject ids, if None, use all subjects in dataset.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, optional</span></dt><dd><p>Print processing information.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Xs</strong><span class="classifier">dict</span></dt><dd><p>An dict of selected events data X.</p>
+</dd>
+<dt><strong>ys</strong><span class="classifier">dict</span></dt><dd><p>An dict of selected events label y.</p>
+</dd>
+<dt><strong>metas</strong><span class="classifier">dict</span></dt><dd><p>An dict of selected events metainfo meta.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.is_valid">
+<em class="property">abstract </em><code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the dataset is compatible with the paradigm.</p>
+<p>This method is called to verify dataset is compatible with the
+paradigm.</p>
+<p>This method should raise an error if the dataset is not compatible
+with the paradigm. This is for example the case if the
+dataset is an ERP dataset for motor imagery paradigm, or if the
+dataset does not contain any of the required events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dataset</strong><span class="classifier">dataset instance</span></dt><dd><p>The dataset to verify.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.register_data_hook">
+<code class="sig-name descname">register_data_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.register_data_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register data hook before return data.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>hook</strong><span class="classifier">callable object</span></dt><dd><p>Callable object to process ndarray data before return it.
+Its’ signature should look like:</p>
+<p>hook(X, y, meta, caches) -&gt; X, y, meta, caches</p>
+<p>where caches is an dict storing information, X, y are ndarray object, meta is a pandas DataFrame instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.register_epochs_hook">
+<code class="sig-name descname">register_epochs_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.register_epochs_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register epochs hook after epoch operation.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>hook</strong><span class="classifier">callable object</span></dt><dd><p>Callable object to process Epochs object after epoch operation.
+Its’ signature should look like:</p>
+<p>hook(epochs, caches) -&gt; epochs, caches</p>
+<p>where caches is an dict storing information, epochs is MNE Epochs instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.register_raw_hook">
+<code class="sig-name descname">register_raw_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.register_raw_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register raw hook before epoch operation.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>hook</strong><span class="classifier">callable object</span></dt><dd><p>Callable object to process Raw object before epoch operation.
+Its’ signature should look like:</p>
+<p>hook(raw, caches) -&gt; raw, caches</p>
+<p>where caches is an dict stroing information, raw is MNE Raw instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.unregister_data_hook">
+<code class="sig-name descname">unregister_data_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.unregister_data_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register data hook before return data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.unregister_epochs_hook">
+<code class="sig-name descname">unregister_epochs_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.unregister_epochs_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register epochs hook after epoch operation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="matrixhacker.paradigms.base.BaseParadigm.unregister_raw_hook">
+<code class="sig-name descname">unregister_raw_hook</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="headerlink" href="#matrixhacker.paradigms.base.BaseParadigm.unregister_raw_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister raw hook before epoch operation.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MatrixHacker</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, swolf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/matrixhacker.paradigms.base.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
